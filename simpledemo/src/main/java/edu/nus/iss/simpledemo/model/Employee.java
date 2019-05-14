@@ -8,9 +8,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 
 @Entity
+@NamedQuery(name = "Employee.findByName", query = "SELECT e FROM Employee e WHERE e.name LIKE :name")
 public class Employee {
 	@Id
 	private int id;

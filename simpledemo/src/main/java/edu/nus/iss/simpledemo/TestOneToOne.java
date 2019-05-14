@@ -20,7 +20,7 @@ public class TestOneToOne {
 			System.out.println(employee.getParkingSpace().toString());
 		}
 		System.out.println("One to One From Parking Space");
-		ParkingSpace ps = em.find(ParkingSpace.class, 1);
+		ParkingSpace ps = em.find(ParkingSpace.class, 6);
 		System.out.println(ps);
 		System.out.println(ps.getEmployee().toString());
 		em.close();
