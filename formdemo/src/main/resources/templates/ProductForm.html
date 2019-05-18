@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<form th:object="${product}" th:action="@{/products}" method="post">
+		<fieldset>
+			Name: <input type="text" th:field="*{name}" >
+			<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+		</fieldset>
+		<fieldset>
+			Description: <input type="text" th:field="*{description}">
+			<p th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></p>
+		</fieldset>
+		<fieldset>
+			Type: <input type="text" th:field="*{type}">
+			<p th:if="${#fields.hasErrors('type')}" th:errors="*{type}"></p>
+		</fieldset>
+		<fieldset>
+			Category: <input type="text" th:field="*{category}">
+			<p th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></p>
+		</fieldset>
+		<fieldset>
+			<button type="submit">Save</button>
+		</fieldset>
+
+	</form>
+</body>
+</html>
