@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+    <h1> This is my first Thymeleaf Demo  </h1>
+    <p th:utext="${message}"> If no message....</p>
+     <table>
+      <tr>
+        <th>PRODUCT NAME</th>
+        <th>PRODUCT TYPE</th>
+        <th>PRODUCT CATEGORY</th>
+        <th>DESCRIPTION</th>
+      </tr>
+      <tr th:each="product : ${plist}">
+        <td th:text="${product.name}">Onions</td>
+        <td th:text="${product.type}">Garlic</td>
+        <td th:text="${product.category}">Thyme</td>
+        <td th:text="${product.description}">Ginger</td>
+      </tr>
+    </table>
+</body>
+</html>
