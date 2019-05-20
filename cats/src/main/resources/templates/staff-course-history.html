@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Department List</title>
+</head>
+<body>
+	<h3>Department List page</h3>
+	<a href="${pageContext.request.contextPath}/admin/department/create">Add
+		Department</a>
+
+	<div th:if="${not #lists.isEmpty(departmentList)}">
+		<table style="cellspacing: 2; cellpadding: 2; border: 1;">
+
+			<tr class="listHeading">
+				<th><span th:text="#{fieldLabel.departmentId}"></span></th>
+				<th><span th:text="#{fieldLabel.managerId}"></span></th>
+				<th><span th:text="#{caption.edit}"></span></th>
+				<th><span th:text="#{caption.delete}"></span></th>
+			</tr>
+			<tr th:each="department : ${departmentList}" class="listRecord">
+				<td align="left" th:text="${department.departmentId}">Id</td>
+				<td align="left" th:text="${department.managerInCharge}">Manager</td>
+
+				<td><a
+					th:href="${'/admin/department/edit/' + department.departmentId}"
+					class="btn btn-default"><span th:text="#{caption.edit}"></span></a></td>
+				<td><a
+					th:href="${'/admin/department/delete/' + department.departmentId}"
+					class="btn btn-default"><span th:text="#{caption.delete}"></span></a></td>
+			</tr>
+		</table>
+	</div>
+	<h3>
+		Employee Course History
+	</h3>
+	<c:if test="${fn:length(chistory) gt 0}">
+		<table style="cellspacing: 2; cellpadding: 2; border: 1;">
+			<tr class="listHeading">
+				<th><spring:message code="fieldLabel.reference" /></th>
+				<th><spring:message code="fieldLabel.name" /></th>
+				<th><spring:message code="fieldLabel.courseName" /></th>
+				<th><spring:message code="fieldLabel.startDate" /></th>
+				<th><spring:message code="fieldLabel.endDate" /></th>
+				<th><spring:message code="fieldLabel.fees" /></th>
+				<th><spring:message code="fieldLabel.status" /></th>
+				<th><spring:message code="fieldLabel.update" /></th>
+				<th><spring:message code="fieldLabel.withdraw" /></th>
+			</tr>
+			<c:forEach var="course" items="${chistory}">
+				<tr class="listRecord">
+					<td>${course.courseId}</td>
+					<td>${course.employeeId}</td>
+					<td>${course.courseName}</td>
+					<td>${course.fromDate}</td>
+					<td>${course.toDate}</td>
+					<td>${course.fees}</td>
+					<td>${course.status}</td>
+					<c:if
+						test="${course.status eq 'SUBMITTED' || course.status eq 'UPDATED' }">
+						<td><a
+							href="${pageContext.request.contextPath}/staff/course/edit/${course.courseId}.html"><spring:message
+									code="fieldLabel.update" /></a></td>
+						<td><a
+							href="${pageContext.request.contextPath}/staff/course/withdraw/${course.courseId}.html"><spring:message
+									code="fieldLabel.withdraw" /></a></td>
+					</c:if>
+					<c:if
+						test="${course.status eq 'WITHDRAWN' || course.status eq 'APPROVED' ||course.status eq 'REJECTED' }">
+						<td></td>
+						<td></td>
+					</c:if>
+				</tr>
+			</c:forEach>
+		</table>
+	</c:if>
+
+</body>
+</html>

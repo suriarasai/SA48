@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Edit Department</title>
+</head>
+<body>
+	<h3>Edit Department page</h3>
+
+	<form action="#"
+		th:action="@{'/admin/department/edit/create'}"
+		th:object="${department}" method="post">
+		<table>
+			<tbody>
+				<tr>
+					<td><span th:text="#{fieldLabel.departmentId}"></span></td>
+					<td><input type="text" th:field="*{departmentId}" /></td>
+					<td th:if="${#fields.hasErrors('departmentId')}"
+						th:errors="*{departmentId}"></td>
+				</tr>
+				<tr>
+					<td><span th:text="#{fieldLabel.managerInCharge}"></span></td>
+					<td><select th:field="*{managerInCharge}">
+							<option th:each="managerInCharge : ${eidlist}" th:value="${managerInCharge}"
+								th:text="#{${'seedstarter.managerInCharge.' + managerInCharge}}">List</option>
+					</select></td>
+					<td th:if="${#fields.hasErrors('managerInCharge')}"
+						th:errors="*{managerInCharge}"></td>
+				</tr>
+				<tr>
+					<td><input type="submit" value="Create" class="blcass" /></td>
+					<td></td>
+					<td></td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+
+</body>
+</html>

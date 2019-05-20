@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Edit Department</title>
+</head>
+<body>
+	<h3>Edit Department page</h3>
+
+	<form action="#"
+		th:action="@{'/admin/department/edit/create'}"
+		th:object="${department}" method="post">
+		<table>
+			<tbody>
+				<tr>
+					<td><span th:text="#{fieldLabel.departmentId}"></span></td>
+					<td><input type="text" th:field="*{departmentId}" /></td>
+					<td th:if="${#fields.hasErrors('departmentId')}"
+						th:errors="*{departmentId}"></td>
+				</tr>
+				<tr>
+					<td><span th:text="#{fieldLabel.managerId}"></span></td>
+					<td><select th:field="*{managerInCharge}">
+							<option th:each="managerInCharge : ${eidlist}" th:value="${managerInCharge}"
+								th:text="#{${'seedstarter.managerInCharge.' + managerInCharge}}">List</option>
+					</select></td>
+					<td th:if="${#fields.hasErrors('managerInCharge')}"
+						th:errors="*{managerInCharge}"></td>
+				</tr>
+				<tr>
+					<td><input type="submit" value="Create" class="blcass" /></td>
+					<td></td>
+					<td></td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+<h3>New Course page</h3>
+<form:form method="POST" commandName="course"
+	action="${pageContext.request.contextPath}/staff/course/create">
+
+	<table>
+		<tr>
+			<td><spring:message code="fieldLabel.courseName" /></td>
+			<td colspan="3"><form:input size="40" path="courseName" /> <form:errors
+					path="courseName" cssStyle="color: red;" /></td>
+		</tr>
+		<tr>
+			<td><spring:message code="fieldLabel.organiser" /></td>
+			<td colspan="3"><form:input size="40" path="organiser" /></td>
+		</tr>
+		<tr>
+			<td><spring:message code="fieldLabel.startDate" /></td>
+			<td><form:input size="16" path="fromDate" id="datepicker1" /><form:errors
+					path="fromDate" cssStyle="color: red;" /></td>
+			<td><spring:message code="fieldLabel.endDate" /></td>
+			<td><form:input size="16" path="toDate" id="datepicker2" /><form:errors
+					path="toDate" cssStyle="color: red;" /></td>
+		</tr>
+		<tr>
+			<td><spring:message code="fieldLabel.fees" /></td>
+			<td><form:input size="20" path="fees" /></td>
+			<td><spring:message code="fieldLabel.gstIncluded" /></td>
+			<td><form:checkbox path="gstIncluded" /></td>
+		</tr>
+		<tr>
+			<td><spring:message code="fieldLabel.justification" /></td>
+			<td colspan="3"><form:textarea cols="64" rows="5"
+					path="justification" /></td>
+		</tr>
+		<tr>
+			<td><spring:message code="fieldLabel.status" /></td>
+			<td><form:input disabled="true" size="20" path="status" /></td>
+		</tr>
+
+		<tr>
+			<td>&nbsp;</td>
+			<td colspan="2" align="left"><br></br> <form:button
+					type="submit">
+					<img
+						src="${pageContext.request.contextPath}/image/button_submit.gif"
+						alt="" align="middle">
+				</form:button>&nbsp; <a href="javascript:history.back();"> <img
+					src="${pageContext.request.contextPath}/image/button_cancel.gif"
+					alt="" align="middle" border="0">
+			</a></td>
+		</tr>
+
+	</table>
+</form:form>
+
+</body>
+</html>

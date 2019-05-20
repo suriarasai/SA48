@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Department List</title>
+</head>
+<body>
+	<h3>Department List page</h3>
+	<a href="${pageContext.request.contextPath}/admin/department/create">Add
+		Department</a>
+
+	<div th:if="${not #lists.isEmpty(departmentList)}">
+		<table style="cellspacing: 2; cellpadding: 2; border: 1;">
+
+			<tr class="listHeading">
+				<th><span th:text="#{fieldLabel.departmentId}"></span></th>
+				<th><span th:text="#{fieldLabel.managerId}"></span></th>
+				<th><span th:text="#{caption.edit}"></span></th>
+				<th><span th:text="#{caption.delete}"></span></th>
+			</tr>
+			<tr th:each="department : ${departmentList}" class="listRecord">
+				<td align="left" th:text="${department.departmentId}">Id</td>
+				<td align="left" th:text="${department.managerInCharge}">Manager</td>
+
+				<td><a
+					th:href="${'/admin/department/edit/' + department.departmentId}"
+					class="btn btn-default"><span th:text="#{caption.edit}"></span></a></td>
+				<td><a
+					th:href="${'/admin/department/delete/' + department.departmentId}"
+					class="btn btn-default"><span th:text="#{caption.delete}"></span></a></td>
+			</tr>
+		</table>
+	</div>
+<h3>User List page</h3>
+<a href="${pageContext.request.contextPath}/admin/user/create">Add
+	User</a>
+<c:if test="${fn:length(userList) gt 0}">
+	<table style="cellspacing: 2; cellpadding: 2; border: 1;">
+		<thead>
+			<tr class="listHeading">
+				<th><spring:message code="fieldLabel.userId" /></th>
+				<th><spring:message code="fieldLabel.username" /></th>
+				<th><spring:message code="fieldLabel.password" /></th>
+				<th><spring:message code="fieldLabel.employeeId" /></th>
+				<th><spring:message code="caption.edit" /></th>
+				<th><spring:message code="caption.delete" /></th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach var="user" items="${userList}">
+				<tr class="listRecord">
+					<td>${user.userId}</td>
+					<td>${user.name}</td>
+					<td>${user.password}</td>
+					<td>${user.employeeId}</td>
+					<td align="center"><a
+						href="${pageContext.request.contextPath}/admin/user/edit/${user.userId}.html"><spring:message
+								code="caption.edit" /></a></td>
+					<td><a
+						href="${pageContext.request.contextPath}/admin/user/delete/${user.userId}.html"><spring:message
+								code="caption.delete" /></a></td>
+				</tr>
+			</c:forEach>
+		</tbody>
+	</table>
+</c:if>
+</body>
+</html>

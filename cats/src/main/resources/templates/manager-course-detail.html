@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Manager Approval Page</title>
+</head>
+<body>
+	<h3 th:utext="#{title.courseDetailsHistory}">
+		Course History
+	</h3>
+
+	<table>
+		<tr>
+			<th align="right"><span th:text="#{fieldLabel.courseId}">Course
+					ID</span></th>
+			<td colspan="3" th:text="${course.courseId}">Id</td>
+		</tr>
+		<tr>
+			<th align="right"><span th:text="fieldLabel.courseName">Course
+					Name</span></th>
+			<td colspan="3" th:text="${course.courseName}">Name</td>
+		</tr>
+		<tr>
+			<th align="right"><span th:text="#{fieldLabel.organiser}">Organiser</span>
+			</th>
+			<td colspan="3" th:text="${course.organiser}">Organiser</td>
+		</tr>
+		<tr>
+			<th align="right"><span th:text="#{fieldLabel.startDate}">Start
+					Date</span></th>
+			<td><fmt:formatDate value="${course.fromDate}"
+					pattern="${APPL_DATE_FORMAT}" /></td>
+			<th align="right"><span th:text="#{fieldLabel.endDate}">End
+					Date</span></th>
+			<td><fmt:formatDate value="${course.toDate}"
+					pattern="${APPL_DATE_FORMAT}" /></td>
+		</tr>
+		<tr>
+			<th align="right"><span th:text="#{fieldLabel.fees}">Fees</span>
+			</th>
+			<td th:text="${course.fees}">Fees</td>
+			<th align="right"><span th:text="#{fieldLabel.gstIncluded}">GST
+					Included</span></th>
+			<td><c:choose>
+					<c:when test="${course.gstIncluded}">
+						<spring:message code="caption.yes" />
+					</c:when>
+					<c:otherwise>
+						<spring:message code="caption.no" />
+					</c:otherwise>
+				</c:choose></td>
+		</tr>
+		<tr>
+			<th align="right"><span th:text="#{fieldLabel.justification}">Justification</span>
+			</th>
+			<td colspan="3" th:text="${course.justification}">Justification</td>
+		</tr>
+		<tr>
+			<th align="right"><span th:text="#{fieldLabel.status}">Status</span>
+			</th>
+			<td colspan="3" th:text="${course.status}">Status</td>
+		</tr>
+	</table>
+
+
+	<form:form method="POST" modelAttribute="approve"
+		action="${pageContext.request.contextPath}/manager/course/edit/${course.courseId}.html">
+		<table>
+			<tr>
+				<td><form:radiobutton path="decision" value="APPROVED"
+						id="decision" /> <spring:message code="caption.approve" />
+					&nbsp;&nbsp; <form:radiobutton path="decision" value="REJECTED"
+						id="decision" /> <spring:message code="caption.reject" /></td>
+			</tr>
+			<tr>
+				<td><span th:text="#{fieldLabel.managerComment}">Manager
+						Comment</span> <br> <form:textarea path="comment" cols="60" rows="4"
+						id="comment" /></td>
+			</tr>
+		</table>
+		<button type="submit" name="submit" value="myimage">
+			<p>Submit</p>
+			<img src="@{/image/button_login.gif}" alt="" align="middle" />
+		</button>
+	</form:form>
+</body>
+</html>

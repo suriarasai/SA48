@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Index</title>
+</head>
+<body>
+	<h1>Home page</h1>
+	<p>
+		Welcome to "CATS: Course Application Tracking System".<br /> <span
+			th:text="#{message.welcome}"> <i>${message}</i><br />
+		</span> <a th:href="@{'/emp/list'}" class="btn btn-default">View </a> <br />
+	</p>
+</body>
+</html>

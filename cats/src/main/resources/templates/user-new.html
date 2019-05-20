@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Edit Department</title>
+</head>
+<body>
+	<h3>Edit Department page</h3>
+
+	<form action="#"
+		th:action="@{'/admin/department/edit/create'}"
+		th:object="${department}" method="post">
+		<table>
+			<tbody>
+				<tr>
+					<td><span th:text="#{fieldLabel.departmentId}"></span></td>
+					<td><input type="text" th:field="*{departmentId}" /></td>
+					<td th:if="${#fields.hasErrors('departmentId')}"
+						th:errors="*{departmentId}"></td>
+				</tr>
+				<tr>
+					<td><span th:text="#{fieldLabel.managerId}"></span></td>
+					<td><select th:field="*{managerInCharge}">
+							<option th:each="managerInCharge : ${eidlist}" th:value="${managerInCharge}"
+								th:text="#{${'seedstarter.managerInCharge.' + managerInCharge}}">List</option>
+					</select></td>
+					<td th:if="${#fields.hasErrors('managerInCharge')}"
+						th:errors="*{managerInCharge}"></td>
+				</tr>
+				<tr>
+					<td><input type="submit" value="Create" class="blcass" /></td>
+					<td></td>
+					<td></td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+<h3>New User page</h3>
+<form:form method="POST" commandName="user"
+	action="${pageContext.request.contextPath}/admin/user/create.html">
+	<table>
+		<tbody>
+			<tr>
+				<td><spring:message code="fieldLabel.userId" /></td>
+				<td><form:input path="userId" /></td>
+				<td><form:errors path="userId" cssStyle="color: red;" /></td>
+			</tr>
+			<tr>
+				<td><spring:message code="fieldLabel.username" /></td>
+				<td><form:input path="name" /></td>
+				<td><form:errors path="name" cssStyle="color: red;" /></td>
+			</tr>
+			<tr>
+				<td><spring:message code="fieldLabel.password" /></td>
+				<td><form:input path="password" /></td>
+				<td><form:errors path="password" cssStyle="color: red;" /></td>
+			</tr>
+			<tr>
+				<td><spring:message code="fieldLabel.employeeId" /></td>
+				<td><form:select path="employeeId" items="${eidlist}" /></td>
+				<td><form:errors path="employeeId" cssStyle="color: red;" /></td>
+			</tr>
+
+			<tr>
+				<td><input type="submit" value="Create" /></td>
+				<td></td>
+				<td></td>
+			</tr>
+		</tbody>
+	</table>
+</form:form>
+
+
+</body>
+</html>
