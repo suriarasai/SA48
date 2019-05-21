@@ -2,74 +2,51 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
-<title>Edit Department</title>
+<title>New User Page</title>
 </head>
 <body>
-	<h3>Edit Department page</h3>
-
-	<form action="#"
-		th:action="@{'/admin/department/edit/create'}"
-		th:object="${department}" method="post">
+		<h3>Edit User page</h3>
+	<form action="#" th:action="@{'/admin/user/create'}"
+		th:object="${user}" method="post">
 		<table>
 			<tbody>
+
 				<tr>
-					<td><span th:text="#{fieldLabel.departmentId}"></span></td>
-					<td><input type="text" th:field="*{departmentId}" /></td>
-					<td th:if="${#fields.hasErrors('departmentId')}"
-						th:errors="*{departmentId}"></td>
+					<td><span th:text="#{fieldLabel.userId}"></span></td>
+					<td><input type="text" th:field="*{userId}" /></td>
+					<td th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}"></td>
 				</tr>
 				<tr>
-					<td><span th:text="#{fieldLabel.managerId}"></span></td>
-					<td><select th:field="*{managerInCharge}">
-							<option th:each="managerInCharge : ${eidlist}" th:value="${managerInCharge}"
-								th:text="#{${'seedstarter.managerInCharge.' + managerInCharge}}">List</option>
+					<td><span th:text="#{fieldLabel.username}"></span></td>
+					<td><input type="text" th:field="*{name}" /></td>
+					<td th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></td>
+				</tr>
+				<tr>
+					<td><span th:text="#{fieldLabel.password}"></span></td>
+					<td><input type="text" th:field="*{password}" /></td>
+					<td th:if="${#fields.hasErrors('password')}"
+						th:errors="*{password}"></td>
+				</tr>
+				<tr>
+					<td><label
+						th:for="${#fieldLabel.employeeId.next('employeeId')}">Emp</label></td>
+					<td><select th:field="*{employeeId}">
+							<option th:each="selectOption : ${eidlist}"
+								th:value="${selectOption}"
+								th:text="#{${'selectOption.' + selectOption}}">
+								selectOption</option>
 					</select></td>
-					<td th:if="${#fields.hasErrors('managerInCharge')}"
-						th:errors="*{managerInCharge}"></td>
+					<td th:if="${#fields.hasErrors('employeeId')}"
+						th:errors="*{employeeId}"></td>
 				</tr>
+
 				<tr>
-					<td><input type="submit" value="Create" class="blcass" /></td>
+					<td><input type="submit" value="Create" /></td>
 					<td></td>
 					<td></td>
 				</tr>
 			</tbody>
 		</table>
-	</form>
-<h3>New User page</h3>
-<form:form method="POST" commandName="user"
-	action="${pageContext.request.contextPath}/admin/user/create.html">
-	<table>
-		<tbody>
-			<tr>
-				<td><spring:message code="fieldLabel.userId" /></td>
-				<td><form:input path="userId" /></td>
-				<td><form:errors path="userId" cssStyle="color: red;" /></td>
-			</tr>
-			<tr>
-				<td><spring:message code="fieldLabel.username" /></td>
-				<td><form:input path="name" /></td>
-				<td><form:errors path="name" cssStyle="color: red;" /></td>
-			</tr>
-			<tr>
-				<td><spring:message code="fieldLabel.password" /></td>
-				<td><form:input path="password" /></td>
-				<td><form:errors path="password" cssStyle="color: red;" /></td>
-			</tr>
-			<tr>
-				<td><spring:message code="fieldLabel.employeeId" /></td>
-				<td><form:select path="employeeId" items="${eidlist}" /></td>
-				<td><form:errors path="employeeId" cssStyle="color: red;" /></td>
-			</tr>
-
-			<tr>
-				<td><input type="submit" value="Create" /></td>
-				<td></td>
-				<td></td>
-			</tr>
-		</tbody>
-	</table>
-</form:form>
-
-
+		</form>
 </body>
 </html>
