@@ -9,18 +9,27 @@
 	<a href="${pageContext.request.contextPath}/admin/department/create">Add
 		Department</a>
 
-	<div th:if="${not #lists.isEmpty(departmentList)}">
+	<div th:if="${not #lists.isEmpty(chistory)}">
 		<table style="cellspacing: 2; cellpadding: 2; border: 1;">
-
 			<tr class="listHeading">
-				<th><span th:text="#{fieldLabel.departmentId}"></span></th>
-				<th><span th:text="#{fieldLabel.managerId}"></span></th>
-				<th><span th:text="#{caption.edit}"></span></th>
-				<th><span th:text="#{caption.delete}"></span></th>
+				<th><span th:text="#{fieldLabel.reference}"></span></th>
+				<th><span th:text="#{fieldLabel.name}"></span></th>
+				<th><span th:text="#{fieldLabel.courseName}"></span></th>
+				<th><span th:text="#{fieldLabel.startDate}"></span></th>
+				<th><span th:text="#{fieldLabel.endDate}"></span></th>
+				<th><span th:text="#{fieldLabel.fees}"></span></th>
+				<th><span th:text="#{fieldLabel.status}"></span></th>
+				<th><span th:text="#{fieldLabel.update}"></span></th>
+				<th><span th:text="#{fieldLabel.withdraw}"></span></th>
 			</tr>
-			<tr th:each="department : ${departmentList}" class="listRecord">
-				<td align="left" th:text="${department.departmentId}">Id</td>
-				<td align="left" th:text="${department.managerInCharge}">Manager</td>
+			<tr th:each="course : ${chistory}" class="listRecord">
+				<td align="left" th:text="${course.courseId}">Id</td>
+				<td align="left" th:text="${course.employeeId}">Employee</td>
+				<td align="left" th:text="${course.courseName}">Name</td>
+				<td align="left" th:text="${course.fromDate}">From</td>
+				<td align="left" th:text="${course.toDate}">To</td>
+				<td align="left" th:text="${course.fees}">Fees</td>
+				<td align="left" th:text="${course.status}">Status</td>
 
 				<td><a
 					th:href="${'/admin/department/edit/' + department.departmentId}"
@@ -31,31 +40,18 @@
 			</tr>
 		</table>
 	</div>
-	<h3>
-		Employee Course History
-	</h3>
+	<h3>Employee Course History</h3>
 	<c:if test="${fn:length(chistory) gt 0}">
 		<table style="cellspacing: 2; cellpadding: 2; border: 1;">
-			<tr class="listHeading">
-				<th><spring:message code="fieldLabel.reference" /></th>
-				<th><spring:message code="fieldLabel.name" /></th>
-				<th><spring:message code="fieldLabel.courseName" /></th>
-				<th><spring:message code="fieldLabel.startDate" /></th>
-				<th><spring:message code="fieldLabel.endDate" /></th>
-				<th><spring:message code="fieldLabel.fees" /></th>
-				<th><spring:message code="fieldLabel.status" /></th>
-				<th><spring:message code="fieldLabel.update" /></th>
-				<th><spring:message code="fieldLabel.withdraw" /></th>
-			</tr>
-			<c:forEach var="course" items="${chistory}">
+			<c:forEach var="" items="${}">
 				<tr class="listRecord">
-					<td>${course.courseId}</td>
-					<td>${course.employeeId}</td>
-					<td>${course.courseName}</td>
-					<td>${course.fromDate}</td>
-					<td>${course.toDate}</td>
-					<td>${course.fees}</td>
-					<td>${course.status}</td>
+					<td>${}</td>
+					<td>${}</td>
+					<td>${}</td>
+					<td>${}</td>
+					<td>${}</td>
+					<td>${}</td>
+					<td>${course.}</td>
 					<c:if
 						test="${course.status eq 'SUBMITTED' || course.status eq 'UPDATED' }">
 						<td><a
