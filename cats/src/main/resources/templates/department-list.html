@@ -6,7 +6,7 @@
 </head>
 <body>
 	<h3>Department List page</h3>
-	<a href="${pageContext.request.contextPath}/admin/department/create">Add
+	<a href="@{/admin/department/create}">Add
 		Department</a>
 
 	<div th:if="${not #lists.isEmpty(departmentList)}">
