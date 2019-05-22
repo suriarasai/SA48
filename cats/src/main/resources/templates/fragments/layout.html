@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
+<link th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}"
+	href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css"
+	rel="stylesheet" media="screen" />
+<link rel="stylesheet" th:href="@{/css/simple.css}"
+	href="../../static/css/simple.css" />
+</head>
+<body>
+	<div class="jumbotron">
+		<div class="row text-center">
+			<div class="row">
+				<h2>Spring MVC Application</h2>
+			</div>
+		</div>
+		<div class="row text-center">
+			<img src="../../static/images/cats.gif" width="5%"
+				th:src="@{/images/cats.gif}" />
+		</div>
+	</div>
+	<div class="container">
+		<div th:fragment="header">
+			<nav class="navbar navbar-default">
+				<div class="container-fluid">
+					<div class="navbar-header">
+
+						<a th:href="@{/logout}" th:utext="#{menu.logout}">Logout</a>
+					</div>
+					<div th:object="${session.USERSESSION.user}">
+						<div
+							th:if="${not #lists.isEmpty(session.USERSESSION.user.roleSet)}">
+							<table>
+								<tr th:each="role : ${session.USERSESSION.user.roleSet}">
+									<td>
+										<div th:switch="${role}" class="nav navbar-nav">
+											<p th:case="'admin'">
+												Administrator Menu <br />
+											<ul class="nav navbar-nav">
+												<li><a th:href="@{/admin/user/list}"
+													th:utext="#{menu.admin.ulist}">User List</a></li>
+												<li><a th:href="@{/admin/role/list}"
+													th:utext="#{menu.admin.rlist}">Role List</a></li>
+												<li><a th:href="@{/admin/employee/list}"
+													th:utext="#{menu.admin.elist}">Employee List</a></li>
+												<li><a th:href="@{/admin/department/list}"
+													th:utext="#{menu.admin.dlist}">Department List</a></li>
+											</ul>
+
+											<p th:case="'manager'">
+												Manager Menu <br />
+											<ul class="nav navbar-nav">
+												<li><a th:href="@{/manager/pending}"
+													th:utext="#{menu.coursesForApproval}">Pending Approval</a>
+												</li>
+												<li><a th:href="@{/manager/shistory}"
+													th:utext="#{menu.subordinateHistory}">Subordinates
+														History</a></li>
+											</ul>
+
+											<p th:case="'staff'">
+												Staff Menu <br />
+											<ul class="nav navbar-nav">
+												<li><a th:href="@{/staff/history}"
+													th:utext="#{menu.personalHistory}">Personal History</a></li>
+												<li><a th:href="@{/staff/course/create}"
+													th:utext="#{menu.courseSubmit}">Apply for course</a></li>
+												<li><a th:href="@{/staff/logout}"
+													th:utext="#{menu.logout}">Logout</a></li>
+											</ul>
+
+
+										</div>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+
+				</div>
+
+			</nav>
+		</div>
+	</div>
+</body>
+</html>
