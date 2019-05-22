@@ -59,7 +59,7 @@ public class AdminEmployeeController {
 		String message = "New employee " + employee.getEmployeeId() + " was successfully created.";
 
 		eService.createEmployee(employee);
-		mav.setViewName("redirect:/admin/employee/list");
+		mav.setViewName("/admin/employee/list");
 
 		redirectAttributes.addFlashAttribute("message", message);
 		return mav;
@@ -89,7 +89,7 @@ public class AdminEmployeeController {
 		if (result.hasErrors())
 			return new ModelAndView("employee-edit");
 
-		ModelAndView mav = new ModelAndView("redirect:/admin/employee/list");
+		ModelAndView mav = new ModelAndView("/admin/employee/list");
 		String message = "Employee was successfully updated.";
 
 		eService.changeEmployee(employee);
@@ -102,7 +102,7 @@ public class AdminEmployeeController {
 	public ModelAndView deleteEmployee(@PathVariable String id, final RedirectAttributes redirectAttributes)
 			throws EmployeeNotFound {
 
-		ModelAndView mav = new ModelAndView("redirect:/admin/employee/list");
+		ModelAndView mav = new ModelAndView("/admin/employee/list");
 		Employee employee = eService.findEmployee(id);
 		eService.removeEmployee(employee);
 		String message = "The employee " + employee.getEmployeeId() + " was successfully deleted.";

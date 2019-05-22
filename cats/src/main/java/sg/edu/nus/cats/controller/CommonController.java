@@ -51,7 +51,7 @@ public class CommonController {
 				us.setSubordinates(subordinates);
 
 			}
-			mav = new ModelAndView("redirect:/staff/history");
+			mav = new ModelAndView("/staff/history");
 		} else {
 			return mav;
 		}

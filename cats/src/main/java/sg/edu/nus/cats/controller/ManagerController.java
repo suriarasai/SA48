@@ -111,7 +111,7 @@ public class ManagerController {
 		System.out.println(c.toString());
 		cService.changeCourse(c);
 		ceService.createCourseEvent(ce);
-		ModelAndView mav = new ModelAndView("redirect:/manager/pending");
+		ModelAndView mav = new ModelAndView("/manager/pending");
 		String message = "Course was successfully updated.";
 		redirectAttributes.addFlashAttribute("message", message);
 		return mav;

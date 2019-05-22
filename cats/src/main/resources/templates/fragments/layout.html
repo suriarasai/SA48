@@ -16,21 +16,21 @@
 			</div>
 		</div>
 		<div class="row text-center">
-			<img src="../../static/images/cats.gif" width="5%"
-				th:src="@{/images/cats.gif}" />
+			<img src="../../static/image/cats.gif" width="5%"
+				th:src="@{/image/cats.gif}" />
 		</div>
 	</div>
 	<div class="container">
 		<div th:fragment="header">
 			<nav class="navbar navbar-default">
-				<div class="container-fluid">
+				<div class="container-fluid" th:if="${not #lists.isEmpty(session.USERSESSION)}" >
 					<div class="navbar-header">
 
 						<a th:href="@{/logout}" th:utext="#{menu.logout}">Logout</a>
 					</div>
-					<div th:object="${session.USERSESSION.user}">
+			
 						<div
-							th:if="${not #lists.isEmpty(session.USERSESSION.user.roleSet)}">
+							th:if="${not #lists.isEmpty(session.USERSESSION.user.roleSet)}" th:object="${session.USERSESSION.user}">
 							<table>
 								<tr th:each="role : ${session.USERSESSION.user.roleSet}">
 									<td>
@@ -77,9 +77,6 @@
 							</table>
 						</div>
 					</div>
-
-				</div>
-
 			</nav>
 		</div>
 	</div>

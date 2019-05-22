@@ -64,7 +64,7 @@ public class AdminUserController {
 		String message = "New user " + user.getUserId() + " was successfully created.";
 
 		uService.createUser(user);
-		mav.setViewName("redirect:/admin/user/list");
+		mav.setViewName("/admin/user/list");
 
 		redirectAttributes.addFlashAttribute("message", message);
 		return mav;
@@ -95,7 +95,7 @@ public class AdminUserController {
 		if (result.hasErrors())
 			return new ModelAndView("user-edit");
 
-		ModelAndView mav = new ModelAndView("redirect:/admin/user/list");
+		ModelAndView mav = new ModelAndView("/admin/user/list");
 		String message = "User was successfully updated.";
 
 		uService.changeUser(user);
@@ -108,7 +108,7 @@ public class AdminUserController {
 	public ModelAndView deleteUser(@PathVariable String id, final RedirectAttributes redirectAttributes)
 			throws UserNotFound {
 
-		ModelAndView mav = new ModelAndView("redirect:/admin/user/list");
+		ModelAndView mav = new ModelAndView("/admin/user/list");
 		User user = uService.findUser(id);
 		uService.removeUser(user);
 		String message = "The user " + user.getUserId() + " was successfully deleted.";

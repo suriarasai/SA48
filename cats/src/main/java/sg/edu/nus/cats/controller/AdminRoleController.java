@@ -57,7 +57,7 @@ public class AdminRoleController {
 		String message = "New role " + role.getRoleId() + " was successfully created.";
 
 		rService.createRole(role);
-		mav.setViewName("redirect:/admin/role/list");
+		mav.setViewName("/admin/role/list");
 
 		redirectAttributes.addFlashAttribute("message", message);
 		return mav;
@@ -86,7 +86,7 @@ public class AdminRoleController {
 		if (result.hasErrors())
 			return new ModelAndView("role-edit");
 
-		ModelAndView mav = new ModelAndView("redirect:/admin/role/list");
+		ModelAndView mav = new ModelAndView("/admin/role/list");
 		String message = "Role was successfully updated.";
 
 		rService.changeRole(role);
@@ -99,7 +99,7 @@ public class AdminRoleController {
 	public ModelAndView deleteRole(@PathVariable String id, final RedirectAttributes redirectAttributes)
 			throws RoleNotFound {
 
-		ModelAndView mav = new ModelAndView("redirect:/admin/role/list");
+		ModelAndView mav = new ModelAndView("/admin/role/list");
 		Role role = rService.findRole(id);
 		rService.removeRole(role);
 		String message = "The role " + role.getRoleId() + " was successfully deleted.";

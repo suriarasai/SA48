@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="ISO-8859-1">
-<title>Department List</title>
-<th:block th:include="fragments/header"></th:block>
+<title>History Page</title>
+<th:block th:include="fragments/layout"></th:block>
 </head>
 <body>
-	<h3>Department List page</h3>
-	<a href="@{/admin/department/create">Add
-		Department</a>
+	<h3>DEmployee Course History</h3>
+	<a th:href="@{/admin/department/create">Add Department</a>
 
 	<div th:if="${not #lists.isEmpty(chistory)}">
 		<table style="cellspacing: 2; cellpadding: 2; border: 1;">
@@ -32,45 +30,30 @@
 				<td align="left" th:text="${course.fees}">Fees</td>
 				<td align="left" th:text="${course.status}">Status</td>
 
-				<td><a
-					th:href="${'/admin/department/edit/' + department.departmentId}"
-					class="btn btn-default"><span th:text="#{caption.edit}"></span></a></td>
-				<td><a
-					th:href="${'/admin/department/delete/' + department.departmentId}"
-					class="btn btn-default"><span th:text="#{caption.delete}"></span></a></td>
+				<td>
+					<div th:switch="${course.status}">
+						<p th:case="'SUBMITTED'">
+							<a th:href="@{'/staff/course/edit/'+course.courseId}">Update</a>
+						</p>
+						<p th:case="'UPDATED'">
+							<a th:href="@{'/staff/course/edit/'+course.courseId}">Update</a>
+						</p>
+						<p th:case="*"></p>
+					</div>
+				</td>
+					<td>
+					<div th:switch="${course.status}">
+						<p th:case="'SUBMITTED'">
+							<a th:href="@{'/staff/course/withdraw/'+course.courseId}">Withdraw</a>
+						</p>
+						<p th:case="'UPDATED'">
+							<a th:href="@{'/staff/course/withdraw/'+course.courseId}">Withdraw</a>
+						</p>
+						<p th:case="*"></p>
+					</div>
+				</td>
 			</tr>
 		</table>
 	</div>
-	<h3>Employee Course History</h3>
-	<c:if test="${fn:length(chistory) gt 0}">
-		<table style="cellspacing: 2; cellpadding: 2; border: 1;">
-			<c:forEach var="" items="${}">
-				<tr class="listRecord">
-					<td>${}</td>
-					<td>${}</td>
-					<td>${}</td>
-					<td>${}</td>
-					<td>${}</td>
-					<td>${}</td>
-					<td>${course.}</td>
-					<c:if
-						test="${course.status eq 'SUBMITTED' || course.status eq 'UPDATED' }">
-						<td><a
-							href="${pageContext.request.contextPath}/staff/course/edit/${course.courseId}.html"><spring:message
-									code="fieldLabel.update" /></a></td>
-						<td><a
-							href="${pageContext.request.contextPath}/staff/course/withdraw/${course.courseId}.html"><spring:message
-									code="fieldLabel.withdraw" /></a></td>
-					</c:if>
-					<c:if
-						test="${course.status eq 'WITHDRAWN' || course.status eq 'APPROVED' ||course.status eq 'REJECTED' }">
-						<td></td>
-						<td></td>
-					</c:if>
-				</tr>
-			</c:forEach>
-		</table>
-	</c:if>
-
 </body>
 </html>

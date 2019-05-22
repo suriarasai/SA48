@@ -51,7 +51,7 @@ public class StaffController {
 	@RequestMapping(value = "/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
-		return "redirect:/home/login";
+		return "/home/login";
 
 	}
 
@@ -93,7 +93,7 @@ public class StaffController {
 		UserSession us = (UserSession) session.getAttribute("USERSESSION");
 		course.setEmployeeId(us.getEmployee().getEmployeeId());
 		course.setStatus(Course.SUBMITTED);
-		mav.setViewName("redirect:/staff/history");
+		mav.setViewName("/staff/history");
 		CourseEvent ce = new CourseEvent();
 		ce.setCourse(course);
 		ce.setEventBy(us.getEmployee().getEmployeeId());
@@ -124,7 +124,7 @@ public class StaffController {
 		UserSession us = (UserSession) session.getAttribute("USERSESSION");
 		course.setEmployeeId(us.getEmployee().getEmployeeId());
 		course.setStatus(Course.UPDATED);
-		mav.setViewName("redirect:/staff/history");
+		mav.setViewName("/staff/history");
 		CourseEvent ce = new CourseEvent();
 		ce.setCourse(course);
 		ce.setEventBy(us.getEmployee().getEmployeeId());
@@ -140,7 +140,7 @@ public class StaffController {
 	public ModelAndView deleteCourse(@PathVariable Integer id, final RedirectAttributes redirectAttributes,
 			HttpSession session) throws CourseNotFound {
 
-		ModelAndView mav = new ModelAndView("redirect:/staff/history");
+		ModelAndView mav = new ModelAndView("/staff/history");
 		Course course = cService.findCourse(id);
 		String message = "Course " + course.getCourseId() + " was successfully withdrawn.";
 		UserSession us = (UserSession) session.getAttribute("USERSESSION");

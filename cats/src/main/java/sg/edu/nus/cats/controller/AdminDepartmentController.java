@@ -61,7 +61,7 @@ public class AdminDepartmentController {
 		String message = "New department " + department.getDepartmentId() + " was successfully created.";
 
 		dService.createDepartment(department);
-		mav.setViewName("redirect:/admin/department/list");
+		mav.setViewName("/admin/department/list");
 
 		redirectAttributes.addFlashAttribute("message", message);
 		return mav;
@@ -91,7 +91,7 @@ public class AdminDepartmentController {
 		if (result.hasErrors())
 			return new ModelAndView("department-edit");
 
-		ModelAndView mav = new ModelAndView("redirect:/admin/department/list");
+		ModelAndView mav = new ModelAndView("/admin/department/list");
 		String message = "Department was successfully updated.";
 
 		dService.changeDepartment(department);
@@ -104,7 +104,7 @@ public class AdminDepartmentController {
 	public ModelAndView deleteDepartment(@PathVariable String id, final RedirectAttributes redirectAttributes)
 			throws DepartmentNotFound {
 
-		ModelAndView mav = new ModelAndView("redirect:/admin/department/list");
+		ModelAndView mav = new ModelAndView("/admin/department/list");
 		Department department = dService.findDepartment(id);
 		dService.removeDepartment(department);
 		String message = "The department " + department.getDepartmentId() + " was successfully deleted.";
