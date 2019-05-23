@@ -11,6 +11,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.servlet.ModelAndView;
 
 import sg.edu.nus.cats.model.Employee;
@@ -20,6 +23,7 @@ import sg.edu.nus.cats.service.UserService;
 
 @Controller
 @RequestMapping(value = "/home")
+@SessionAttributes("session")
 public class CommonController {
 
 	@Autowired
@@ -35,7 +39,8 @@ public class CommonController {
 	}
 
 	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
-	public ModelAndView authenticate(@ModelAttribute User user, HttpSession session, BindingResult result) {
+	public ModelAndView authenticate(@ModelAttribute User user, @SessionAttribute HttpSession session,
+			BindingResult result) {
 		ModelAndView mav = new ModelAndView("login");
 		if (result.hasErrors())
 			return mav;

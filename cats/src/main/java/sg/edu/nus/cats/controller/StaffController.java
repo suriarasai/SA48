@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -29,6 +31,7 @@ import sg.edu.nus.cats.validator.CourseValidator;
 
 @Controller
 @RequestMapping(value = "/staff")
+@SessionAttributes("session")
 public class StaffController {
 	@Autowired
 	private CourseService cService;
@@ -49,7 +52,7 @@ public class StaffController {
 	}
 
 	@RequestMapping(value = "/logout")
-	public String logout(HttpSession session) {
+	public String logout(@SessionAttribute HttpSession session) {
 		session.invalidate();
 		return "/home/login";
 
@@ -62,12 +65,15 @@ public class StaffController {
 	 */
 
 	@RequestMapping(value = "/history")
-	public ModelAndView employeeCourseHistory(HttpSession session) {
+	public ModelAndView employeeCourseHistory(@SessionAttribute HttpSession session) {
 		UserSession us = (UserSession) session.getAttribute("USERSESSION");
 		ModelAndView mav = new ModelAndView("login");
 		if (us.getSessionId() != null) {
 			mav = new ModelAndView("/staff-course-history");
-			mav.addObject("chistory", cService.findCoursesByEID(us.getEmployee().getEmployeeId()));
+			System.out.println(us.getEmployee());
+			if (cService.findCoursesByEID(us.getEmployee().getEmployeeId()).size() > 0) {
+				mav.addObject("chistory", cService.findCoursesByEID(us.getEmployee().getEmployeeId()));
+			}
 			return mav;
 		}
 		return mav;
@@ -83,7 +89,7 @@ public class StaffController {
 
 	@RequestMapping(value = "/course/create", method = RequestMethod.POST)
 	public ModelAndView createNewCourse(@ModelAttribute @Valid Course course, BindingResult result,
-			final RedirectAttributes redirectAttributes, HttpSession session) {
+			final RedirectAttributes redirectAttributes, @SessionAttribute HttpSession session) {
 
 		if (result.hasErrors())
 			return new ModelAndView("staff-course-new");
@@ -115,7 +121,7 @@ public class StaffController {
 
 	@RequestMapping(value = "/course/edit/{id}", method = RequestMethod.POST)
 	public ModelAndView editCourse(@ModelAttribute @Valid Course course, BindingResult result, @PathVariable Integer id,
-			final RedirectAttributes redirectAttributes, HttpSession session) throws CourseNotFound {
+			final RedirectAttributes redirectAttributes, @SessionAttribute HttpSession session) throws CourseNotFound {
 		if (result.hasErrors())
 			return new ModelAndView("staff-course-edit");
 		ModelAndView mav = new ModelAndView();
@@ -138,7 +144,7 @@ public class StaffController {
 
 	@RequestMapping(value = "/course/withdraw/{id}", method = RequestMethod.GET)
 	public ModelAndView deleteCourse(@PathVariable Integer id, final RedirectAttributes redirectAttributes,
-			HttpSession session) throws CourseNotFound {
+			@SessionAttribute HttpSession session) throws CourseNotFound {
 
 		ModelAndView mav = new ModelAndView("/staff/history");
 		Course course = cService.findCourse(id);

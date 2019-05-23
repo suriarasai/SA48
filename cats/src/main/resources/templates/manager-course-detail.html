@@ -6,9 +6,7 @@
 <th:block th:include="fragments/layout"></th:block>
 </head>
 <body>
-	<h3 th:utext="#{title.courseDetailsHistory}">
-		Course History
-	</h3>
+	<h3 th:utext="#{title.courseDetailsHistory}">Course History</h3>
 
 	<table>
 		<tr>
@@ -29,12 +27,12 @@
 		<tr>
 			<th align="right"><span th:text="#{fieldLabel.startDate}">Start
 					Date</span></th>
-			<td><fmt:formatDate value="${course.fromDate}"
-					pattern="${APPL_DATE_FORMAT}" /></td>
+			<td th:text="${#dates.format(course.fromDate, 'dd-MMM-yyyy')}">
+				From Date</td>
 			<th align="right"><span th:text="#{fieldLabel.endDate}">End
 					Date</span></th>
-			<td><fmt:formatDate value="${course.toDate}"
-					pattern="${APPL_DATE_FORMAT}" /></td>
+			<td th:text="${#dates.format(course.toDate, 'dd-MMM-yyyy')}">To
+				Date</td>
 		</tr>
 		<tr>
 			<th align="right"><span th:text="#{fieldLabel.fees}">Fees</span>
@@ -42,14 +40,7 @@
 			<td th:text="${course.fees}">Fees</td>
 			<th align="right"><span th:text="#{fieldLabel.gstIncluded}">GST
 					Included</span></th>
-			<td><c:choose>
-					<c:when test="${course.gstIncluded}">
-						<spring:message code="caption.yes" />
-					</c:when>
-					<c:otherwise>
-						<spring:message code="caption.no" />
-					</c:otherwise>
-				</c:choose></td>
+			<td th:if="${course.gstIncluded}" th:text="#{caption.yes}"></td>
 		</tr>
 		<tr>
 			<th align="right"><span th:text="#{fieldLabel.justification}">Justification</span>
@@ -64,8 +55,8 @@
 	</table>
 
 
-	<form:form method="POST" modelAttribute="approve"
-		action="${pageContext.request.contextPath}/manager/course/edit/${course.courseId}.html">
+	<form action="#" th:action="@{'/manager/course/edit/'+course.courseId}"
+		th:object="${approve}" method="post">
 		<table>
 			<tr>
 				<td><form:radiobutton path="decision" value="APPROVED"
@@ -75,14 +66,15 @@
 			</tr>
 			<tr>
 				<td><span th:text="#{fieldLabel.managerComment}">Manager
-						Comment</span> <br> <form:textarea path="comment" cols="60" rows="4"
-						id="comment" /></td>
+						Comment</span> <br> <textarea rows="4" cols="60"
+						th:field="*{comment}"> Text Area</textarea></td>
+			</tr>
+			<tr>
+				<td><input type="submit" value="Update" class="blcass" /></td>
+
 			</tr>
 		</table>
-		<button type="submit" name="submit" value="myimage">
-			<p>Submit</p>
-			<img src="@{/image/button_login.gif}" alt="" align="middle" />
-		</button>
-	</form:form>
+
+	</form>
 </body>
 </html>

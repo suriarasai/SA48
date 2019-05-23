@@ -23,60 +23,64 @@
 	<div class="container">
 		<div th:fragment="header">
 			<nav class="navbar navbar-default">
-				<div class="container-fluid" th:if="${not #lists.isEmpty(session.USERSESSION)}" >
+				<div class="container-fluid"
+					th:if="${not #lists.isEmpty(session.USERSESSION)}">
 					<div class="navbar-header">
 
 						<a th:href="@{/logout}" th:utext="#{menu.logout}">Logout</a>
 					</div>
-			
-						<div
-							th:if="${not #lists.isEmpty(session.USERSESSION.user.roleSet)}" th:object="${session.USERSESSION.user}">
-							<table>
-								<tr th:each="role : ${session.USERSESSION.user.roleSet}">
-									<td>
-										<div th:switch="${role}" class="nav navbar-nav">
-											<p th:case="'admin'">
-												Administrator Menu <br />
-											<ul class="nav navbar-nav">
-												<li><a th:href="@{/admin/user/list}"
-													th:utext="#{menu.admin.ulist}">User List</a></li>
-												<li><a th:href="@{/admin/role/list}"
-													th:utext="#{menu.admin.rlist}">Role List</a></li>
-												<li><a th:href="@{/admin/employee/list}"
-													th:utext="#{menu.admin.elist}">Employee List</a></li>
-												<li><a th:href="@{/admin/department/list}"
-													th:utext="#{menu.admin.dlist}">Department List</a></li>
-											</ul>
 
-											<p th:case="'manager'">
-												Manager Menu <br />
-											<ul class="nav navbar-nav">
-												<li><a th:href="@{/manager/pending}"
-													th:utext="#{menu.coursesForApproval}">Pending Approval</a>
-												</li>
-												<li><a th:href="@{/manager/shistory}"
+					<div
+						th:if="${not #lists.isEmpty(session.USERSESSION.user.roleSet)}"
+						th:object="${session.USERSESSION.user}">
+						<table>
+							<tr th:each="role : ${session.USERSESSION.user.roleSet}">
+								<td>
+									<div th:switch="${role}" class="nav navbar-nav">
+										<p th:case="'admin'">
+											Administrator Menu <br />
+										<table class="nav navbar-nav">
+											<tr>
+												<td><a th:href="@{/admin/user/list}"
+													th:utext="#{menu.admin.ulist}">User List</a></td>
+												<td><a th:href="@{/admin/role/list}"
+													th:utext="#{menu.admin.rlist}">Role List</a></td>
+												<td><a th:href="@{/admin/employee/list}"
+													th:utext="#{menu.admin.elist}">Employee List</a></td>
+												<td><a th:href="@{/admin/department/list}"
+													th:utext="#{menu.admin.dlist}">Department List</a></td>
+											</tr>
+										</table>
+										<p th:case="'manager'">
+											Manager Menu <br />
+										<table class="nav navbar-nav">
+											<tr>
+												<td><a th:href="@{/manager/pending}"
+													th:utext="#{menu.coursesForApproval}">Pending Approval</a></td>
+												<td><a th:href="@{/manager/shistory}"
 													th:utext="#{menu.subordinateHistory}">Subordinates
-														History</a></li>
-											</ul>
+														History</a></td>
+											</tr>
+										</table>
 
-											<p th:case="'staff'">
-												Staff Menu <br />
-											<ul class="nav navbar-nav">
-												<li><a th:href="@{/staff/history}"
-													th:utext="#{menu.personalHistory}">Personal History</a></li>
-												<li><a th:href="@{/staff/course/create}"
-													th:utext="#{menu.courseSubmit}">Apply for course</a></li>
-												<li><a th:href="@{/staff/logout}"
-													th:utext="#{menu.logout}">Logout</a></li>
-											</ul>
-
-
-										</div>
-									</td>
-								</tr>
-							</table>
-						</div>
+										<p th:case="'staff'">
+											Staff Menu <br />
+										<table class="nav navbar-nav">
+											<tr>
+												<td><a th:href="@{/staff/history}"
+													th:utext="#{menu.personalHistory}">Personal History</a></td>
+												<td><a th:href="@{/staff/course/create}"
+													th:utext="#{menu.courseSubmit}">Apply for course</a></td>
+												<td><a th:href="@{/staff/logout}"
+													th:utext="#{menu.logout}">Logout</a></td>
+											</tr>
+										</table>
+								</div>
+								</td>
+							</tr>
+						</table>
 					</div>
+				</div>
 			</nav>
 		</div>
 	</div>
