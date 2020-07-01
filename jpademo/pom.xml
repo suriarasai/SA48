@@ -20,7 +20,7 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.44</version>
+			<version>8.0.16</version>
 			<!-- For MySQL 8 use 8.0.16 Please -->
 		</dependency>
 		<!-- For connection pooling -->
